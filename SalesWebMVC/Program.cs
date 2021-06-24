@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace SalesWebMVC
+namespace SalesWebMvc
 {
     public class Program
     {
