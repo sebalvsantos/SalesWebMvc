@@ -2,6 +2,9 @@
 using SalesWebMvc.Models.ViewModels;
 using SalesWebMvc.Services;
 using SalesWebMvc.Models;
+using System.Collections.Generic;
+using SalesWebMvc.Services.Exceptions;
+using System.Diagnostics;
 
 namespace SalesWebMvc.Controllers
 {
@@ -45,7 +48,7 @@ namespace SalesWebMvc.Controllers
                 if (obj != null)
                     return View(obj);
             }
-            return NotFound();
+            return RedirectToAction(nameof(Error), new { message = "Id not found or not provided (" + id.Value + ")" });
         }
 
         public IActionResult Details(int? id)
@@ -56,7 +59,7 @@ namespace SalesWebMvc.Controllers
                 if (obj != null)
                     return View(obj);
             }
-            return NotFound();
+            return RedirectToAction(nameof(Error), new { message = "Id not found or not provided (" + id.Value + ")" });
         }
 
         [HttpPost]
@@ -65,6 +68,49 @@ namespace SalesWebMvc.Controllers
         {
             _sellerService.Remove(id);
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Edit(int? id)
+        {
+            if (id != null)
+            {
+                var obj = _sellerService.FindById(id.Value);
+                if (obj != null)
+                {
+                    List<Department> departments = _departmentService.FindAll();
+                    SellerFormViewModel viewModel = new SellerFormViewModel { Seller = obj, Departments = departments };
+                    return View(viewModel);
+                }
+            }
+            return RedirectToAction(nameof(Error), new { message = "Id not found or not provided (" + id.Value + ")" });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, Seller seller)
+        {
+            if (id == seller.Id)
+            {
+                try
+                {
+                    _sellerService.Update(seller);
+                    return RedirectToAction(nameof(Index));
+                } 
+                catch (System.ApplicationException e)
+                {
+                    return RedirectToAction(nameof(Error), new { message = e.Message});
+                }
+            }
+            return RedirectToAction(nameof(Error), new { message = "Ids '" + id + "' and '" + seller.Id + "' mismatch" });
+        }
+        public IActionResult Error(string message)
+        {
+            var viewModel = new ErrorViewModel
+            {
+                Message = message,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            };
+            return View(viewModel);
         }
     }
 }
