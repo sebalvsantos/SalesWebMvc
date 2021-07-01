@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using SalesWebMvc.Services.Exceptions;
+using SalesWebMvc.Models.ViewModels;
+using System;
 
 namespace SalesWebMvc.Services
 {
@@ -54,5 +56,9 @@ namespace SalesWebMvc.Services
             }
         }
 
+        internal void Insert(SellerFormViewModel seller)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
