@@ -28,26 +28,26 @@
         <h3 class="panel-title">Total sales = @Model.Sum(obj => obj.Amount).ToString("F2")</h3>
     </div>
     <div class="panel-body">
-        <table class="table-striped table-hover">
+        <table class="table table-primary table-striped table-hover">
             <thead>
-                <tr class="panel-success">
-                    <th>
-                        @Html.DisplayNameFor(model => model.Id)&nbsp;&nbsp;
+                <tr class="success">
+                    <th class="text-right">
+                        @Html.DisplayNameFor(model => model.Id)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Date)&nbsp;&nbsp;
+                        @Html.DisplayNameFor(model => model.Date)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Seller)&nbsp;&nbsp;
+                        @Html.DisplayNameFor(model => model.Seller)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Seller.Department)&nbsp;&nbsp;
+                        @Html.DisplayNameFor(model => model.Seller.Department)
+                    </th>
+                    <th class="text-right">
+                        @Html.DisplayNameFor(model => model.Amount)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Amount)&nbsp;&nbsp;
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Status)&nbsp;&nbsp;
+                        @Html.DisplayNameFor(model => model.Status)
                     </th>
                 </tr>
             </thead>
@@ -55,23 +55,23 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Id)&nbsp;
+                        <td class="text-right">
+                            @Html.DisplayFor(modelItem => item.Id)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Date)&nbsp;
+                            @Html.DisplayFor(modelItem => item.Date)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Seller.Name)&nbsp;
+                            @Html.DisplayFor(modelItem => item.Seller.Name)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Seller.Department.Name)&nbsp;
+                            @Html.DisplayFor(modelItem => item.Seller.Department.Name)
+                        </td>
+                        <td class="text-right">
+                            @Html.DisplayFor(modelItem => item.Amount)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Amount)&nbsp;
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Status)&nbsp;
+                            @Html.DisplayFor(modelItem => item.Status)
                         </td>
                     </tr>
                 }
